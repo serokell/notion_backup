@@ -11,7 +11,7 @@ defmodule NotionToGDrive.Pandoc do
       "-t",
       "docx",
       "--template",
-      template,
+      template(),
       "--output",
       output,
       input
