@@ -10,7 +10,7 @@ defmodule NotionToGDrive.Pandoc do
       "markdown",
       "-t",
       "docx",
-      "--template",
+      "--reference-doc",
       template(),
       "--output",
       output,
