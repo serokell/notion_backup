@@ -1,14 +1,19 @@
-alias GoogleApi.Drive.V3.Api.Files
-alias GoogleApi.Drive.V3.Api.Permissions
+alias GoogleApi.Drive.V3.Api.{Files,Permissions}
 alias GoogleApi.Drive.V3.Connection
-alias GoogleApi.Drive.V3.Model.File
-alias GoogleApi.Drive.V3.Model.Permission
+alias GoogleApi.Drive.V3.Model.{File,Permission}
 
 defmodule NotionToGDrive.Import do
+  @moduledoc """
+    Google Drive import logic.
+  """
+
   import ConfigMacro
   config :notion_to_gdrive, folder_name: "Notion Export"
   config :notion_to_gdrive, [:root_email]
 
+  @doc """
+    Receive OAuth token and establish connection to Google Drive.
+  """
   def connect do
     {:ok, %{token: token}} = Goth.Token.for_scope("https://www.googleapis.com/auth/drive")
     Connection.new(token)

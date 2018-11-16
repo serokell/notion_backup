@@ -1,6 +1,10 @@
 alias NotionToGDrive.{Export, Import, Pandoc}
 
 defmodule NotionToGDrive.Job do
+  @moduledoc """
+    Recurring job that runs Notion -> GDrive pipeline each `interval()`.
+  """
+
   import ConfigMacro
   config :notion_to_gdrive, interval: 1000 * 60 * 30
 
@@ -20,7 +24,11 @@ defmodule NotionToGDrive.Job do
 
   def handle_info(:tick, old_timer) do
     Process.cancel_timer(old_timer)
-    Export.all_files() |> Pandoc.convert_all() |> Import.upload_files()
+    run()
     {:noreply, schedule(interval())}
+  end
+
+  def run do
+    Export.all_files() |> Pandoc.convert_all() |> Import.upload_files()
   end
 end

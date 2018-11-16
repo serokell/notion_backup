@@ -1,4 +1,8 @@
 defmodule NotionToGDrive.NotionV3 do
+  @moduledoc """
+    Reverse-engineered Notion V3 API.
+  """
+
   import ConfigMacro
   config :notion_to_gdrive, [:token]
 
